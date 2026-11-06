@@ -1,0 +1,209 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  --font-serif: "Lora", Georgia, "Times New Roman", serif;
+
+  --color-bg: #f6f6f3;
+  --color-surface: #ffffff;
+  --color-surface-2: #efefeb;
+  --color-border: #e4e4dd;
+  --color-text: #17181c;
+  --color-muted: #6d7280;
+  --color-accent: #2f6bff;
+  --color-accent-strong: #1f54e0;
+  --color-accent-soft: #e4edff;
+  --color-accent-2: #7c5cff;
+  --color-danger: #e5484d;
+  --color-danger-soft: #fdecec;
+  --color-star: #f5a623;
+}
+
+.dark {
+  --color-bg: #0a0b10;
+  --color-surface: #11131b;
+  --color-surface-2: #181b26;
+  --color-border: #242839;
+  --color-text: #eceef4;
+  --color-muted: #98a0b3;
+  --color-accent: #8aa8ff;
+  --color-accent-strong: #a9c0ff;
+  --color-accent-soft: #1b2340;
+  --color-accent-2: #a78bfa;
+  --color-danger: #ff7076;
+  --color-danger-soft: #3a1d20;
+  --color-star: #f5b83d;
+}
+
+html,
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-accent) 25%, transparent);
+}
+
+/* ---------- scrollbars ---------- */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ---------- animations ---------- */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+@keyframes shake {
+  10%,
+  90% {
+    transform: translateX(-1px);
+  }
+  20%,
+  80% {
+    transform: translateX(2px);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translateX(-3px);
+  }
+  40%,
+  60% {
+    transform: translateX(3px);
+  }
+}
+@keyframes room-open {
+  from {
+    opacity: 0;
+    transform: scale(0.985) translateY(14px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.animate-fade-in {
+  animation: fade-in 0.3s ease both;
+}
+.animate-pop-in {
+  animation: pop-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.animate-toast-in {
+  animation: toast-in 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.animate-shake {
+  animation: shake 0.45s ease both;
+}
+.animate-room-open {
+  animation: room-open 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.spinner {
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  border: 2px solid color-mix(in srgb, var(--color-muted) 40%, transparent);
+  border-top-color: var(--color-accent);
+  animation: spin 0.7s linear infinite;
+}
+.pulse-dot {
+  animation: pulse-dot 1.4s ease-in-out infinite;
+}
+
+/* ---------- writing editor ---------- */
+.wr-editor {
+  outline: none;
+  caret-color: var(--color-accent);
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  min-height: 60vh;
+  white-space: pre-wrap;
+}
+.wr-editor:empty::before {
+  content: attr(data-placeholder);
+  color: var(--color-muted);
+  opacity: 0.55;
+  pointer-events: none;
+}
+.wr-editor u {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- decorative background for lock screen ---------- */
+.lock-bg {
+  background:
+    radial-gradient(60rem 30rem at 15% -10%, color-mix(in srgb, var(--color-accent-2) 16%, transparent), transparent 60%),
+    radial-gradient(50rem 28rem at 90% 110%, color-mix(in srgb, var(--color-accent) 14%, transparent), transparent 60%),
+    var(--color-bg);
+}
